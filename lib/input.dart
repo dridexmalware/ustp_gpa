@@ -16,12 +16,12 @@ class _CourseInputState extends State<CourseInput> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(20.0),
+      margin: const EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 10.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 30.0),
         child: Column(
           children: <Widget>[
             TextField(
@@ -32,7 +32,7 @@ class _CourseInputState extends State<CourseInput> {
               children: <Widget>[
                 Expanded(
                   child: TextField(
-                    decoration: const InputDecoration(labelText: 'Numerical Rating'),
+                    decoration: const InputDecoration(labelText: 'Grade'),
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     onChanged: (value) {
                       setState(() {
@@ -44,7 +44,7 @@ class _CourseInputState extends State<CourseInput> {
                 const SizedBox(width: 10),
                 Expanded(
                   child: TextField(
-                    decoration: const InputDecoration(labelText: 'Academic Units'),
+                    decoration: const InputDecoration(labelText: 'Units'),
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
                     onChanged: (value) {
                       setState(() {

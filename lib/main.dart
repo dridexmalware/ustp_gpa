@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:gwa_calculator/splash_screen.dart';
+import 'package:gwa_calculator/home.dart'; // Make sure this path is correct
 
 void main() => runApp(const GPACalculatorApp());
 
 class GPACalculatorApp extends StatelessWidget {
-  const GPACalculatorApp({super.key});
+  const GPACalculatorApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'GPA Calculator',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Poppins', // Set the default font for the whole app
+        textTheme: const TextTheme(
+          bodyText1: TextStyle(), // Default style for body text
+          bodyText2: TextStyle(), // Default style for other text
+          // Add other styles if needed
+        ),
       ),
-      home: const SplashScreen(),
+      home: const Home(),
     );
   }
 }
+
 
 class Course {
   String id = UniqueKey().toString();

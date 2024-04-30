@@ -38,8 +38,21 @@ class _HomeState extends State<Home> {
     return totalUnits > 0 ? totalPoints / totalUnits : 0.0;
   }
 
+  Color _getBackgroundColor(double gpa) {
+    if (gpa >= 3.01) {
+      return Colors.red;
+    } else if (gpa < 1.76) {
+      return Colors.green;
+    } else if (gpa < 3.01) {
+      return Colors.orange;
+    } else {
+      return Colors.blue; // Default color if none of the conditions are met
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    double gpa = courses.isNotEmpty ? _calculateGPA() : 0.0;
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -64,12 +77,12 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                   child: ElevatedButton(
                     onPressed: _addCourse,
-                    child: const Text('Add Course', style: TextStyle(color: Color(0xFF1A1751))),
+                    child: Text('Add Course', style: TextStyle(fontSize: 18)),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.white,
                       onPrimary: Color(0xFF1A1751),
                       side: BorderSide(color: Color(0xFF1A1751), width: 1),
-                      minimumSize: Size(double.infinity, 50),
+                      minimumSize: Size(double.infinity, 60),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -78,26 +91,33 @@ class _HomeState extends State<Home> {
                 ),
                 if (courses.isNotEmpty)
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                     child: ElevatedButton(
                       onPressed: () => setState(() {}),
-                      child: const Text('Calculate'),
+                      child: Text('Calculate', style: TextStyle(fontSize: 18)),
                       style: ElevatedButton.styleFrom(
                         primary: Color(0xFF1A1751),
-                        minimumSize: Size(double.infinity, 50),
+                        minimumSize: Size(double.infinity, 60),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
                     ),
                   ),
-                if (courses.isNotEmpty) ...[
-                  Text('Units Total: ${_calculateTotalUnits().toStringAsFixed(2)}'),
-                  Text('Total Grade Points: ${_calculateTotalGradePoints().toStringAsFixed(2)}'),
-                  Text('Your GPA: ${_calculateGPA().toStringAsFixed(2)}'),
-                ]
               ],
             ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: courses.isNotEmpty ? _getBackgroundColor(gpa) : Colors.blue,
+        child: Container(
+          height: 50.0,
+          child: Center(
+            child: courses.isNotEmpty ? Text(
+              'Your GPA: ${gpa.toStringAsFixed(2)}',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ) : SizedBox.shrink(),
           ),
         ),
       ),
